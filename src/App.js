@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react'
+import Home from './pages/home/Home';
+import {ImageGround}from './globals/GlobalSC'
+import groundImage from './images/raw_material.jpg';
+import Navbar from './components/navbar/Navbar';
+import Chatbar from './components/chatbar/Chatbar';
+import CookieChart from './pages/home/homeSubComponents/cookieChart/CookieChart';
 
 function App() {
+  const [showCookie, setShowCookie] = useState(true);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+     <Home />
+     <Chatbar />
+     <ImageGround  src={groundImage} />
+     {showCookie &&  <CookieChart setShowCookie={setShowCookie}  />}
+     
+
     </div>
   );
 }
