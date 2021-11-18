@@ -1,7 +1,7 @@
 .btn {
     outline: none;
     background: rgba(204, 204, 204, 0.57);
-    border: 2px solid #939191;
+    border: 1px solid #939191;
     padding: 10px 20px;
     display: flex;
     justify-content: center;
@@ -20,4 +20,9 @@
 .btn--text {
     color: #ffffff;
     font-weight: 400;
+}
+
+.btn--small {
+    font-size: 12px;
+    padding: 5px 10px;
 }

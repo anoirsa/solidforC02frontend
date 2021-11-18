@@ -8,6 +8,7 @@ const centerStyle = css`
 
 const Wrapper = styled.div`
     width: 90%;
+    max-width: 800px;
     height: 100%;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 3px;
