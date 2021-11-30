@@ -27,8 +27,8 @@ const Wrapper = styled.div`
     font-size: 2rem;
   }
 
-  p {
-    margin-top: 60px;
+  .intro--text {
+    margin-top: 20px;
   }
 `;
 
@@ -67,7 +67,7 @@ const ButtonSection = styled.div`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   
   
@@ -76,8 +76,9 @@ const LeftSection = styled.div`
 const RightSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  
   
   
  
@@ -89,6 +90,8 @@ const InsertionSection = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+  margin-top: 2.5rem;
+  
 `;
 
 const SubCompAdd = styled(motion.div)`
@@ -163,17 +166,15 @@ const ItemWrapper = styled.div`
 `;
 
 const Infos = styled.div`
-    position: absolute;
+    position: fixed;
     overflow: hidden;
     display: none;
-    top: -40px;
-    right: -80px;
-    width:190px;
+    transform: translate(120px, -30px);
+    width:200px;
     padding: 5px 10px;
-    height: 30px;
-    z-index: 6;
     border-radius: 3px;
     background: #383737d5;
+    z-index: 200;
 
     ${ItemWrapper}:hover & {
       display: flex;
@@ -182,6 +183,7 @@ const Infos = styled.div`
         color: white;
         font-size: 10px;
         font-weight: 400;
+        margin-top: 5px;
       }
     }
 `;

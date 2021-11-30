@@ -35,6 +35,7 @@ const ComopnentItem = ({ id, itemData }) => {
         <Infos>
             <h6>Identifer: {itemData.subIdentifier}</h6>
             <h6>C02 emissions: {itemData.subProductEmission}</h6>
+            <h6>Amount : {itemData.amount}</h6>
         </Infos>
       <div className="inner--wrapper">
         <h5>{id}</h5>

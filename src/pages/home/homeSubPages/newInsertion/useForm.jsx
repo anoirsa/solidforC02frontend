@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import { ACTIONS } from "../../../../globals/GlobalRd";
 
 const reducerOne = (state, action) => {
@@ -24,6 +24,7 @@ const useFocuses = () => {
     subProductFocus: false,
     subIdentifierFocus: false,
     subEmmissionFocus: false,
+    amountFocus: false
   });
 
   const setInputFocus = ({ name, set }) => {
@@ -41,7 +42,7 @@ const reducerTwo = (inputsMain, action) => {
     case ACTIONS.INPUT_SET:
       return { ...inputsMain, [action.playload.name]: action.playload.value };
     case ACTIONS.ADD_SUB_TO_MAIN: 
-      return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}  
+      return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}     
 
     default:
       break;
@@ -54,7 +55,7 @@ const useInputsMain = () => {
     productName: "",
     countryOrigin: "",
     identifer: "",
-    productEmission: "",
+    productEmission: 0,
     subComponents: []
 
   });
@@ -81,6 +82,8 @@ const reducerThree = (inputsSub, action) => {
   switch (action.type) {
     case ACTIONS.INPUT_SET:
       return { ...inputsSub, [action.playload.name]: action.playload.value };
+    case ACTIONS.TOTAL_EMISSION_PER_SUB_COM: 
+      return {...inputsSub, totalCarbonEmission: inputsSub.subProductEmission * inputsSub.amount}   
 
     default:
       break;
@@ -94,6 +97,8 @@ const useInputsSubs = () => {
     subProductName: "",
     subIdentifier: "",
     subProductEmission: "",
+    amount: 0,
+    totalCarbonEmission: 0
   });
 
   const handleChangeInput = (e) => {
@@ -102,6 +107,17 @@ const useInputsSubs = () => {
       playload: { name: e.target.name, value: e.target.value },
     });
   };
+  // This function counts  TOTAL_EMISSION_PER_COM
+  const countTotalEmissions = () => {
+    dispatch({
+      type: ACTIONS.TOTAL_EMISSION_PER_SUB_COM,
+    })
+  }
+
+  useEffect(() => {
+    countTotalEmissions();
+  }, [inputsSub.amount, 
+      inputsSub.subProductEmission])
   return { inputsSub, handleChangeInput };
 };
 

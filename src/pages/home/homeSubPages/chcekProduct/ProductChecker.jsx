@@ -17,6 +17,7 @@ const ProductChecker = ({setService}) => {
                 <InputWrapper
                     focused={focused}
                 >
+                    
                     <input type="text" 
                         onFocus = {() => setOnFocused(true)}
                         onBlur = {() => setOnFocused(false)}

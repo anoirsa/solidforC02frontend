@@ -14,9 +14,13 @@ const SubInsertion = ({ setFillingForm, addSubComponent }) => {
   const [submitted, setSubmitted] = useState(false);
   const { state, setInputFocus } = useFocuses();
   const { inputsSub, handleChangeInput } = useInputsSubs();
-  const { subProductFocus, subIdentifierFocus, subEmmissionFocus } = state;
-  const { subProductName, subIdentifier, subProductEmission } = inputsSub;
-
+  const { subProductFocus, subIdentifierFocus, subEmmissionFocus, amountFocus } = state;
+  const { subProductName, subIdentifier, subProductEmission,amount, totalCarbonEmission } = inputsSub;
+  // Debug
+  console.log("Sub emissions are " + subProductEmission)
+  console.log("Amount is " + amount);
+  console.log(totalCarbonEmission)
+  //
   return !submitted ? (
     <SubCompAdd
       initial={{ opacity: 0, x: -100 }}
@@ -75,6 +79,26 @@ const SubInsertion = ({ setFillingForm, addSubComponent }) => {
           placeholder="CO2 Emissions"
         />
       </InputWrapper>
+      {/** Adding the anount input */}
+      <InputWrapper focused={amountFocus} insertion={true}>
+        <input
+          type="text"
+          name={CMP_SUB_INPUTS.AMOUNT}
+          value={amount}
+          onChange={(e) => handleChangeInput(e)}
+          onFocus={() =>
+            setInputFocus({ name: INPUTS_FOCUS.AMOUNT, set: true })
+          }
+          onBlur={() =>
+            setInputFocus({ name: INPUTS_FOCUS.AMOUNT, set: false })
+          }
+          placeholder="Amount"
+        />
+      </InputWrapper>    
+
+
+
+      {/**  */}
       <ButtonSection>
         <Button
           buttonSize="btn--small"

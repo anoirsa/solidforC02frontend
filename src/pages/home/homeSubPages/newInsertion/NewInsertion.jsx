@@ -45,10 +45,11 @@ const NewInsertion = ({ setService }) => {
     >
       <Wrapper>
         <h2>Solid for CO2</h2>
-        <p>Insert the C02 emissions details for your new product</p>
+        <p className="intro--text">Insert the C02 emissions details for your new product</p>
 
         <InsertionSection>
           <LeftSection>
+            <p>Main component details:</p>
             <InputWrapper focused={productFocus} insertion={true}>
               <input
                 type="text"

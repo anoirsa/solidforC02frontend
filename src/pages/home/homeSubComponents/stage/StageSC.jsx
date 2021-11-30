@@ -17,11 +17,10 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-    margin-top: 10vh;
+    margin-top: 3vh;
     width: 100%;
-    height: 70vh;
+    height: 83vh;
     padding: 5px 10px;
-
     ${centerStyle}
 `;
 
