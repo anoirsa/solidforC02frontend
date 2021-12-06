@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../../../components/button/Button";
 import { CMP_MAIN_INPUTS, INPUTS_FOCUS } from "../../../../globals/GlobalRd";
+import { addComponent } from "../../../../solidapi/SolidRequests";
 import {
   Container,
   Wrapper,
@@ -37,7 +38,7 @@ const NewInsertion = ({ setService }) => {
     productEmission,
     subComponents,
   } = inputsMain;
-
+  
   return (
     <Container
       initial={{ opacity: 0, x: -100 }}
@@ -145,7 +146,7 @@ const NewInsertion = ({ setService }) => {
         </InsertionSection>
         <ButtonSection>
           <Button textGiven="Back" functionGiven={setService} />
-          <Button textGiven="Proceed" />
+          <Button textGiven="Proceed" functionGiven={() => addComponent(inputsMain)}/>
         </ButtonSection>
       </Wrapper>
     </Container>

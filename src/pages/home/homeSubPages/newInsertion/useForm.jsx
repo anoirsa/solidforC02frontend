@@ -42,7 +42,19 @@ const reducerTwo = (inputsMain, action) => {
     case ACTIONS.INPUT_SET:
       return { ...inputsMain, [action.playload.name]: action.playload.value };
     case ACTIONS.ADD_SUB_TO_MAIN: 
-      return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}     
+      return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}  
+    case ACTIONS.TOTAL_EMISSIONS_OF_ALL: {
+      const {subComponents} = inputsMain;
+     
+      let totalValue = 0
+      subComponents.forEach(value => {
+        totalValue += value.totalCarbonEmission
+      });
+      
+      return {...inputsMain, productEmission : totalValue}
+    }
+      
+
 
     default:
       break;
@@ -73,6 +85,14 @@ const useInputsMain = () => {
     dispatch({ type: ACTIONS.ADD_SUB_TO_MAIN, playload: { value } });
     callback(true);
   };
+  // function that counts the minium amount of emissions that must be in a main component
+  const minEmissionsCount = () => {
+    dispatch({type : ACTIONS.TOTAL_EMISSIONS_OF_ALL})
+  }
+
+  useEffect(() => {
+    minEmissionsCount();
+  }, [inputsMain.subComponents.length])
 
   return { inputsMain, handleChangeInput, addSubComponent };
 };

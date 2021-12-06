@@ -16,11 +16,7 @@ const SubInsertion = ({ setFillingForm, addSubComponent }) => {
   const { inputsSub, handleChangeInput } = useInputsSubs();
   const { subProductFocus, subIdentifierFocus, subEmmissionFocus, amountFocus } = state;
   const { subProductName, subIdentifier, subProductEmission,amount, totalCarbonEmission } = inputsSub;
-  // Debug
-  console.log("Sub emissions are " + subProductEmission)
-  console.log("Amount is " + amount);
-  console.log(totalCarbonEmission)
-  //
+  
   return !submitted ? (
     <SubCompAdd
       initial={{ opacity: 0, x: -100 }}

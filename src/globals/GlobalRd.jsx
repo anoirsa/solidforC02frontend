@@ -11,7 +11,8 @@
     FOCUS_SET: 'focusset',
     INPUT_SET : 'inputset',
     ADD_SUB_TO_MAIN: 'addSubToMain',
-    TOTAL_EMISSION_PER_SUB_COM: 'totalemissionpersubcom'
+    TOTAL_EMISSION_PER_SUB_COM: 'totalemissionpersubcom',
+    TOTAL_EMISSIONS_OF_ALL: 'totalemissionsofall'
  }
 
  export const INPUTS_FOCUS =  {
@@ -41,3 +42,6 @@ export const CMP_SUB_INPUTS = {
     EMISSION: 'subProductEmission',
     AMOUNT: 'amount'
 }
+// 
+
+//
