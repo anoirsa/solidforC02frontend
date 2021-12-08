@@ -7,7 +7,7 @@ import { Container, Wrapper } from './StageSC'
 
 const Stage = () => {
     const [service, setService] = useState(1)
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
     return (
         <Container>
             <Wrapper>
