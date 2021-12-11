@@ -1,4 +1,5 @@
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useContext } from "react";
+import { Context } from "../../../../context/DataContext";
 import { ACTIONS } from "../../../../globals/GlobalRd";
 
 const reducerOne = (state, action) => {
@@ -41,6 +42,8 @@ const reducerTwo = (inputsMain, action) => {
   switch (action.type) {
     case ACTIONS.INPUT_SET:
       return { ...inputsMain, [action.playload.name]: action.playload.value };
+    case ACTIONS.CLEAR:   
+      return {productName: "",countryOrigin: "", identifer:"", productEmission:"", subComponents:[]}
     case ACTIONS.ADD_SUB_TO_MAIN: 
       return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}  
     case ACTIONS.TOTAL_EMISSIONS_OF_ALL: {
@@ -71,7 +74,12 @@ const useInputsMain = () => {
     subComponents: []
 
   });
-  
+  const { addNewComponent } = useContext(Context)
+
+  const addNewComponentAll = async() => {
+      await addNewComponent(inputsMain)
+      dispatch({type : ACTIONS.CLEAR})
+  } 
 
   const handleChangeInput = (e) => {
     dispatch({
@@ -94,7 +102,7 @@ const useInputsMain = () => {
     minEmissionsCount();
   }, [inputsMain.subComponents.length])
 
-  return { inputsMain, handleChangeInput, addSubComponent };
+  return { inputsMain, handleChangeInput, addSubComponent, addNewComponentAll };
 };
 
 // A Reducer function assigned to sub-components inputs

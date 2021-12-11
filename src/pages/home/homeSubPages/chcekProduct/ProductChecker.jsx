@@ -3,9 +3,12 @@ import Button from '../../../../components/button/Button';
 import { Container, 
     Wrapper, InputWrapper,
     ButtonSection} from './ProductCheckerSC'
+import { useMainInput } from './useForm';
 
 const ProductChecker = ({setService}) => {
     const [focused, setOnFocused] = useState(false);
+    const {productIdentifer, setProductIdentifer} = useMainInput();
+    console.log(productIdentifer);
     return (
         <Container
         initial = {{opacity :0 , x: -100}}
@@ -17,10 +20,11 @@ const ProductChecker = ({setService}) => {
                 <InputWrapper
                     focused={focused}
                 >
-                    
-                    <input type="text" 
+                        <input type="text" 
                         onFocus = {() => setOnFocused(true)}
                         onBlur = {() => setOnFocused(false)}
+                        value={productIdentifer}
+                        onChange = {e => setProductIdentifer(e.target.value)}
                         placeholder = "Identifier"
                     />
                 </InputWrapper>

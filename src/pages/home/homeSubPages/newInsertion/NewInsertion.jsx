@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "../../../../components/button/Button";
+import { Context } from "../../../../context/DataContext";
 import { CMP_MAIN_INPUTS, INPUTS_FOCUS } from "../../../../globals/GlobalRd";
 import { addComponent } from "../../../../solidapi/SolidRequests";
 import {
@@ -23,7 +24,7 @@ import { useFocuses, useInputsMain } from "./useForm";
 
 const NewInsertion = ({ setService }) => {
   const { state, setInputFocus, setFillingForm } = useFocuses();
-  const { inputsMain, handleChangeInput, addSubComponent } = useInputsMain();
+  const { inputsMain, handleChangeInput, addSubComponent, addNewComponentAll } = useInputsMain();
   const {
     productFocus,
     countryFocus,
@@ -38,7 +39,7 @@ const NewInsertion = ({ setService }) => {
     productEmission,
     subComponents,
   } = inputsMain;
-  
+  //const { addNewSubComponent } = useContext(Context)
   return (
     <Container
       initial={{ opacity: 0, x: -100 }}
@@ -146,7 +147,7 @@ const NewInsertion = ({ setService }) => {
         </InsertionSection>
         <ButtonSection>
           <Button textGiven="Back" functionGiven={setService} />
-          <Button textGiven="Proceed" functionGiven={() => addComponent(inputsMain)}/>
+          <Button textGiven="Proceed" functionGiven={() => addNewComponentAll(inputsMain)}/>
         </ButtonSection>
       </Wrapper>
     </Container>

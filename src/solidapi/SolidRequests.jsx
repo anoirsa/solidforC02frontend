@@ -140,3 +140,8 @@ export const addComponent = async (component) => {
     return { success: false };
   }
 };
+
+
+const checkComponent = () => {
+  
+}

@@ -10,8 +10,8 @@ import { Context } from './context/DataContext';
 
 function App() {
   const [showCookie, setShowCookie] = useState(true);
-  const context = useContext(Context)
-  console.log(context)
+  const {showModal} = useContext(Context)
+  console.log(showModal);
   return (
     <div className="App">
       <Navbar />

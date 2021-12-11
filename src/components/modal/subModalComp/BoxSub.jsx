@@ -14,16 +14,16 @@ const dataExample = {
     totalCarbonEmission: "24400"
 }
 
-function BoxSub({sData}) {
+function BoxSub({subDetails}) {
     return (
         <BoxContainer>
             <SubName>
-                {sData.subProductName}
+                {subDetails.subProductName}
             </SubName>
             <InfosSub>
-                <p>Identifier: {sData.subIdentifier}</p>
-                <p>Emissions: {sData.subProductEmission} kt</p>
-                <p>Amount: {sData.amount}</p>
+                <p>Identifier: {subDetails.subIdentifier}</p>
+                <p>Emissions: {subDetails.subProductEmission} kt</p>
+                <p>Amount: {subDetails.amount}</p>
 
             </InfosSub>
         </BoxContainer>

@@ -34,13 +34,15 @@ const productExample = {
 
 //
 
-const Modal = ({setShowModal}) => { 
+const Modal = ({setShowModal,componentDetails,containerId}) => { 
     return ( 
         <ContainerModal>
             
             <ContainerValue>
             <Close className="close--icon" onClick = {() => setShowModal(false)}/>
-            <InsideModal containerId={1} />
+            <InsideModal 
+            containerId={containerId}
+            componentDetails={componentDetails} />
             </ContainerValue>
            </ContainerModal>
     ) 
@@ -56,24 +58,22 @@ const InsideModal = ({containerId, componentDetails}) => {
                 <div className="main--details-class">
                    {DETAILS_INPUT.map((value, index) => {
                        return (
-                        <p><span className="field--detail">{value.label} </span> 
-                        <span className="info--detail">{productExample[value.valueName]}</span></p>
+                        <p key={index}><span className="field--detail">{value.label} </span> 
+                        <span className="info--detail">{componentDetails[value.valueName]}</span></p>
                        )
                    })}
                 </div>
                 <p className="text--input"> Sub components are:</p>
                 <div className="boxes--container">
-                    {/** 
+                     
                     {componentDetails.subComponents.map((value, index) => {
                         return(
-                            <BoxSub sData={value}  key={index}/>
+                            <BoxSub subDetails={value}  key={index}/>
                         )
-                    })}  */}
-                    {/** <BoxSub />
-                    <BoxSub />
-                    <BoxSub /> **/}
-                    {/**  
-                    {componentDetails.subComponents.length > 3 &&  <SeeMore /> } */}
+                    })}  
+                    
+                     
+                    {componentDetails.subComponents.length > 3 &&  <SeeMore /> }
 
                 </div>
             </SuccessfulEntry> )
@@ -85,7 +85,3 @@ const InsideModal = ({containerId, componentDetails}) => {
 }
 
 export default Modal
-/**
-   <p><span className="field--detail">Main component name: </span> 
-                    <span className="info--detail">{productExample.productName}</span></p>
- */

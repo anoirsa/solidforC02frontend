@@ -11,6 +11,7 @@ export const ACTIONS = {
   ADD_SUB_TO_MAIN: "addSubToMain",
   TOTAL_EMISSION_PER_SUB_COM: "totalemissionpersubcom",
   TOTAL_EMISSIONS_OF_ALL: "totalemissionsofall",
+  CLEAR: 'clear'
 };
 
 export const INPUTS_FOCUS = {
