@@ -1,8 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import Button from "../../../../components/button/Button";
-import { Context } from "../../../../context/DataContext";
 import { CMP_MAIN_INPUTS, INPUTS_FOCUS } from "../../../../globals/GlobalRd";
-import { addComponent } from "../../../../solidapi/SolidRequests";
 import {
   Container,
   Wrapper,
@@ -39,7 +37,6 @@ const NewInsertion = ({ setService }) => {
     productEmission,
     subComponents,
   } = inputsMain;
-  //const { addNewSubComponent } = useContext(Context)
   return (
     <Container
       initial={{ opacity: 0, x: -100 }}

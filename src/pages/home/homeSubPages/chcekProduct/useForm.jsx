@@ -1,10 +1,15 @@
-import React, {useState} from 'react';
+import {useContext, useState} from 'react';
+import { Context } from '../../../../context/DataContext';
 
 
 const useMainInput = () => {
     const [productIdentifer, setProductIdentifer] = useState("");
+    const {getReadComponent} = useContext(Context);
 
-    return {productIdentifer, setProductIdentifer}
+    const rComponent = async () => {
+        await getReadComponent(productIdentifer);
+    }
+    return {productIdentifer, setProductIdentifer, rComponent}
 }
 
 

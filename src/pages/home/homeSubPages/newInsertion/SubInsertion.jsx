@@ -8,15 +8,25 @@ import {
   ButtonSection,
   InputWrapper,
 } from "./NewInsertionSC";
-import { useFocuses, useInputsMain, useInputsSubs } from "./useForm";
+import { useFocuses, useInputsSubs } from "./useForm";
 
 const SubInsertion = ({ setFillingForm, addSubComponent }) => {
   const [submitted, setSubmitted] = useState(false);
   const { state, setInputFocus } = useFocuses();
   const { inputsSub, handleChangeInput } = useInputsSubs();
-  const { subProductFocus, subIdentifierFocus, subEmmissionFocus, amountFocus } = state;
-  const { subProductName, subIdentifier, subProductEmission,amount, totalCarbonEmission } = inputsSub;
-  
+  const {
+    subProductFocus,
+    subIdentifierFocus,
+    subEmmissionFocus,
+    amountFocus,
+  } = state;
+  const {
+    subProductName,
+    subIdentifier,
+    subProductEmission,
+    amount,
+  } = inputsSub;
+
   return !submitted ? (
     <SubCompAdd
       initial={{ opacity: 0, x: -100 }}
@@ -90,9 +100,7 @@ const SubInsertion = ({ setFillingForm, addSubComponent }) => {
           }
           placeholder="Amount"
         />
-      </InputWrapper>    
-
-
+      </InputWrapper>
 
       {/**  */}
       <ButtonSection>

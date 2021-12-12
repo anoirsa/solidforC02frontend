@@ -61,7 +61,6 @@ const ButtonSection = styled.div`
   margin-top: 15px;
 `;
 
-
 ///// These components are applied the inset sub-component class
 
 const LeftSection = styled.div`
@@ -69,8 +68,6 @@ const LeftSection = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  
-  
 `;
 
 const RightSection = styled.div`
@@ -78,10 +75,6 @@ const RightSection = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  
-  
-  
- 
 `;
 
 const InsertionSection = styled.div`
@@ -91,101 +84,95 @@ const InsertionSection = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
   margin-top: 2.5rem;
-  
 `;
 
 const SubCompAdd = styled(motion.div)`
-    ${styledCenter}
-    flex-direction: column;
-    p {
-        font-size: 12px;
-    }
-
+  ${styledCenter}
+  flex-direction: column;
+  p {
+    font-size: 12px;
+  }
 `;
 
 // The word sum refeeres to 'Submit'
 const SubCompSum = styled(motion.div)`
-    ${styledCenter}
-    flex-direction: column;
-    gap: 15px;
+  ${styledCenter}
+  flex-direction: column;
+  gap: 15px;
 
-    p {
-        font-size: 14px;
-        color: #4d4242;
-    }
-    
-`
+  p {
+    font-size: 14px;
+    color: #4d4242;
+  }
+`;
 
 ///// These components are applied the ListSubcomponents class
 
 const ListCompWrapper = styled(motion.div)`
-    ${styledCenter}
-    flex-direction: column;
-    width: 100%;
-    overflow: visible;
+  ${styledCenter}
+  flex-direction: column;
+  width: 100%;
+  overflow: visible;
 `;
 
-const ItemWrapper = styled.div` 
-    ${styledCenter}
-    position: relative;
-    width : 50%;
-    height: 2rem;
-    border-radius: 3px;
-    margin-bottom: 4px;
-    padding: 0 5px;
-    background: #47464648;
-    border: 1px solid #1d1c1cd8;
-    cursor: pointer;
-    overflow: visible;
+const ItemWrapper = styled.div`
+  ${styledCenter}
+  position: relative;
+  width: 50%;
+  height: 2rem;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  padding: 0 5px;
+  background: #47464648;
+  border: 1px solid #1d1c1cd8;
+  cursor: pointer;
+  overflow: visible;
 
-    .inner--wrapper {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-direction: row;
+  .inner--wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
 
-      h5 {
-        font-size: 15px;
-        width: 20%;
-        font-weight: 400;
-      }
-      .product--name {
-        text-align: start;
-        width: 80%;
-      }
+    h5 {
+      font-size: 15px;
+      width: 20%;
+      font-weight: 400;
     }
-
-    &:hover {
-      opacity: 0.8;
+    .product--name {
+      text-align: start;
+      width: 80%;
     }
+  }
 
-   
-  
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Infos = styled.div`
-    position: fixed;
-    overflow: hidden;
-    display: none;
-    transform: translate(120px, -30px);
-    width:200px;
-    padding: 5px 10px;
-    border-radius: 3px;
-    background: #383737d5;
-    z-index: 200;
+  position: fixed;
+  overflow: hidden;
+  display: none;
+  transform: translate(120px, -30px);
+  width: 200px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: #383737d5;
+  z-index: 200;
 
-    ${ItemWrapper}:hover & {
-      display: flex;
-      flex-direction: column;
-      h6 {
-        color: white;
-        font-size: 10px;
-        font-weight: 400;
-        margin-top: 5px;
-      }
+  ${ItemWrapper}:hover & {
+    display: flex;
+    flex-direction: column;
+    h6 {
+      color: white;
+      font-size: 10px;
+      font-weight: 400;
+      margin-top: 5px;
     }
+  }
 `;
 
 export {
@@ -195,10 +182,10 @@ export {
   ButtonSection,
   LeftSection,
   InsertionSection,
-  RightSection, 
+  RightSection,
   SubCompAdd,
-  SubCompSum, 
+  SubCompSum,
   ListCompWrapper,
-  ItemWrapper, 
-  Infos
+  ItemWrapper,
+  Infos,
 };

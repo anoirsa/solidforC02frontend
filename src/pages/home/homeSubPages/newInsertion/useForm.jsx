@@ -25,7 +25,7 @@ const useFocuses = () => {
     subProductFocus: false,
     subIdentifierFocus: false,
     subEmmissionFocus: false,
-    amountFocus: false
+    amountFocus: false,
   });
 
   const setInputFocus = ({ name, set }) => {
@@ -42,22 +42,29 @@ const reducerTwo = (inputsMain, action) => {
   switch (action.type) {
     case ACTIONS.INPUT_SET:
       return { ...inputsMain, [action.playload.name]: action.playload.value };
-    case ACTIONS.CLEAR:   
-      return {productName: "",countryOrigin: "", identifer:"", productEmission:"", subComponents:[]}
-    case ACTIONS.ADD_SUB_TO_MAIN: 
-      return {...inputsMain, subComponents: [...inputsMain.subComponents, action.playload.value]}  
+    case ACTIONS.CLEAR:
+      return {
+        productName: "",
+        countryOrigin: "",
+        identifer: "",
+        productEmission: "",
+        subComponents: [],
+      };
+    case ACTIONS.ADD_SUB_TO_MAIN:
+      return {
+        ...inputsMain,
+        subComponents: [...inputsMain.subComponents, action.playload.value],
+      };
     case ACTIONS.TOTAL_EMISSIONS_OF_ALL: {
-      const {subComponents} = inputsMain;
-     
-      let totalValue = 0
-      subComponents.forEach(value => {
-        totalValue += value.totalCarbonEmission
-      });
-      
-      return {...inputsMain, productEmission : totalValue}
-    }
-      
+      const { subComponents } = inputsMain;
 
+      let totalValue = 0;
+      subComponents.forEach((value) => {
+        totalValue += value.totalCarbonEmission;
+      });
+
+      return { ...inputsMain, productEmission: totalValue };
+    }
 
     default:
       break;
@@ -71,15 +78,14 @@ const useInputsMain = () => {
     countryOrigin: "",
     identifer: "",
     productEmission: 0,
-    subComponents: []
-
+    subComponents: [],
   });
-  const { addNewComponent } = useContext(Context)
+  const { addNewComponent } = useContext(Context);
 
-  const addNewComponentAll = async() => {
-      await addNewComponent(inputsMain)
-      dispatch({type : ACTIONS.CLEAR})
-  } 
+  const addNewComponentAll = async () => {
+    await addNewComponent(inputsMain);
+    dispatch({ type: ACTIONS.CLEAR });
+  };
 
   const handleChangeInput = (e) => {
     dispatch({
@@ -95,12 +101,12 @@ const useInputsMain = () => {
   };
   // function that counts the minium amount of emissions that must be in a main component
   const minEmissionsCount = () => {
-    dispatch({type : ACTIONS.TOTAL_EMISSIONS_OF_ALL})
-  }
+    dispatch({ type: ACTIONS.TOTAL_EMISSIONS_OF_ALL });
+  };
 
   useEffect(() => {
     minEmissionsCount();
-  }, [inputsMain.subComponents.length])
+  }, [inputsMain.subComponents.length]);
 
   return { inputsMain, handleChangeInput, addSubComponent, addNewComponentAll };
 };
@@ -110,8 +116,11 @@ const reducerThree = (inputsSub, action) => {
   switch (action.type) {
     case ACTIONS.INPUT_SET:
       return { ...inputsSub, [action.playload.name]: action.playload.value };
-    case ACTIONS.TOTAL_EMISSION_PER_SUB_COM: 
-      return {...inputsSub, totalCarbonEmission: inputsSub.subProductEmission * inputsSub.amount}   
+    case ACTIONS.TOTAL_EMISSION_PER_SUB_COM:
+      return {
+        ...inputsSub,
+        totalCarbonEmission: inputsSub.subProductEmission * inputsSub.amount,
+      };
 
     default:
       break;
@@ -126,7 +135,7 @@ const useInputsSubs = () => {
     subIdentifier: "",
     subProductEmission: "",
     amount: 0,
-    totalCarbonEmission: 0
+    totalCarbonEmission: 0,
   });
 
   const handleChangeInput = (e) => {
@@ -139,13 +148,12 @@ const useInputsSubs = () => {
   const countTotalEmissions = () => {
     dispatch({
       type: ACTIONS.TOTAL_EMISSION_PER_SUB_COM,
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     countTotalEmissions();
-  }, [inputsSub.amount, 
-      inputsSub.subProductEmission])
+  }, [inputsSub.amount, inputsSub.subProductEmission]);
   return { inputsSub, handleChangeInput };
 };
 

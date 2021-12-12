@@ -10,17 +10,14 @@ import {
   addStringNoLocale,
   buildThing,
   getStringNoLocale,
-  removeStringNoLocale,
 } from "@inrupt/solid-client";
 import { RDF } from "@inrupt/vocab-common-rdf";
 import {
   SOLID_MAIN_PROPERTY,
   SOLID_SUB_PROPERTY,
-  SOLID_PROPERTY,
   SOLID_RESOURCE_URL,
   SOLID_TYPES,
 } from "../globals/GlobalSolid";
-import { SignalCellularNull } from "@material-ui/icons";
 
 const isThingExsists = (dataSet, url) =>
   getThing(dataSet, url) == null ? false : true;
@@ -48,7 +45,6 @@ const adjustSubDataSet = async (subComponent, mainComponent) => {
         `${SOLID_RESOURCE_URL.SUB_COM}#${subComponent[i].subIdentifier}`
       )
     ) {
-      
       thingToAdd = createThing({ name: subComponent[i].subIdentifier });
       componentsThatBelongTo = [];
 
@@ -61,32 +57,30 @@ const adjustSubDataSet = async (subComponent, mainComponent) => {
       }
       thingToAdd = addUrl(thingToAdd, RDF.type, SOLID_TYPES.PRODUCT);
     } else {
-     
       thingToAdd = getThing(
         componentSolidDataSet,
         `${SOLID_RESOURCE_URL.SUB_COM}#${subComponent[i].subIdentifier}`
       );
-      componentsThatBelongTo = JSON.parse(getStringNoLocale(thingToAdd, SOLID_TYPES.PART_OF))
-      
+      componentsThatBelongTo = JSON.parse(
+        getStringNoLocale(thingToAdd, SOLID_TYPES.PART_OF)
+      );
     }
     thingToAdd = buildThing(thingToAdd)
       .setStringNoLocale(
         SOLID_TYPES.PART_OF,
-        JSON.stringify([...componentsThatBelongTo, {
-          name: mainComponent.productName,
-          identifer: mainComponent.identifer
-        }])
+        JSON.stringify([
+          ...componentsThatBelongTo,
+          {
+            productName: mainComponent.productName,
+            identifer: mainComponent.identifer,
+            productEmission: mainComponent.productEmission,
+          },
+        ])
       )
       .build();
-    /**
-     {
-          name: mainComponent.productName,
-          identifer: mainComponent.identifer,
-        }
-     */
 
     componentSolidDataSet = setThing(componentSolidDataSet, thingToAdd);
-    const savedSolidDataSet = await saveSolidDatasetAt(
+    await saveSolidDatasetAt(
       SOLID_RESOURCE_URL.SUB_COM,
       componentSolidDataSet,
       { fetch: fetch }
@@ -98,10 +92,16 @@ export const addComponent = async (component) => {
   let componentSolidDataSet = await initiatDataSet(SOLID_RESOURCE_URL.MAIN_COM);
   // Validation check if the main components already exsited
 
-  if (isThingExsists(componentSolidDataSet, `${SOLID_RESOURCE_URL.MAIN_COM}#${component.identifer}`)) {
+  if (
+    isThingExsists(
+      componentSolidDataSet,
+      `${SOLID_RESOURCE_URL.MAIN_COM}#${component.identifer}`
+    )
+  ) {
     return {
-      success: false, thingExisted: true
-    }
+      success: true,
+      thingExisted: true,
+    };
   }
   let componentThing = createThing({ name: component.identifer });
   for (let key in SOLID_MAIN_PROPERTY) {
@@ -116,7 +116,9 @@ export const addComponent = async (component) => {
   const sComponents = component.subComponents;
   for (let value in sComponents) {
     subComponents.push({
-      subComponentIdentifier: sComponents[value].subIdentifier,
+      subIdentifier: sComponents[value].subIdentifier,
+      subProductEmission: sComponents[value].subProductEmission,
+      subProductName: sComponents[value].subProductName,
       amount: sComponents[value].amount,
     });
   }
@@ -129,7 +131,7 @@ export const addComponent = async (component) => {
   componentSolidDataSet = setThing(componentSolidDataSet, componentThing);
   console.log(componentSolidDataSet);
   try {
-    const savedSolidDataSet = await saveSolidDatasetAt(
+    await saveSolidDatasetAt(
       SOLID_RESOURCE_URL.MAIN_COM,
       componentSolidDataSet,
       { fetch: fetch }
@@ -141,7 +143,44 @@ export const addComponent = async (component) => {
   }
 };
 
+//// //// //////
 
-const checkComponent = () => {
-  
-}
+export const getComponent = async (identifier) => {
+  const { MAIN_COM, SUB_COM } = SOLID_RESOURCE_URL;
+  let myDataset = await getSolidDataset(MAIN_COM, { fetch: fetch });
+  let isComponent = isThingExsists(myDataset, `${MAIN_COM}#${identifier}`);
+  let isSubComponent = false;
+  if (!isComponent) {
+    myDataset = await getSolidDataset(SUB_COM, { fetch: fetch });
+    isComponent = isThingExsists(myDataset, `${SUB_COM}#${identifier}`);
+    if (!isComponent) {
+      return { success: false };
+    } else {
+      isSubComponent = true;
+    }
+  }
+  const cmp = getThing(
+    myDataset,
+    `${isSubComponent ? SUB_COM : MAIN_COM}#${identifier}`
+  );
+  const properties = Object.values(
+    isSubComponent ? SOLID_SUB_PROPERTY : SOLID_MAIN_PROPERTY
+  );
+  if (isComponent) {
+    let componentValue = {};
+    properties.forEach((item) => {
+      componentValue[item.value] = getStringNoLocale(cmp, item.url);
+    });
+    let subPossibleArray = JSON.parse(
+      getStringNoLocale(
+        cmp,
+        isSubComponent ? SOLID_TYPES.PART_OF : SOLID_TYPES.SUB_COMPONENT
+      )
+    );
+    componentValue.isSubComponent = isSubComponent;
+    componentValue[
+      isSubComponent ? "isPartOf" : "subComponents"
+    ] = subPossibleArray;
+    return { componentValue, success: true };
+  }
+};

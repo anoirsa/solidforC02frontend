@@ -1,15 +1,13 @@
-import React from 'react'
-import { ChatIcon, Container } from './ChatbarSC'
-import iconChat from '../../images/icons/Group.svg';
+import React from "react";
+import { ChatIcon, Container } from "./ChatbarSC";
+import iconChat from "../../images/icons/Group.svg";
 
 const Chatbar = () => {
-    return (
-        <Container>
-            <ChatIcon src={iconChat} />
+  return (
+    <Container>
+      <ChatIcon src={iconChat} />
+    </Container>
+  );
+};
 
-            
-        </Container>
-    )
-}
-
-export default Chatbar
+export default Chatbar;

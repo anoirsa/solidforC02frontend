@@ -8,18 +8,26 @@ import { Container, Wrapper } from "./StageSC";
 
 const Stage = () => {
   const [service, setService] = useState(1);
-  //const [showModal, setShowModal] = useState(true);
-  const { containerId,componentDetails ,showModal, exitFromModal } = useContext(Context);
+  const {
+    searchPurpose,
+    containerId,
+    componentDetails,
+    showModal,
+    exitFromModal,
+  } = useContext(Context);
   return (
     <Container>
       <Wrapper>
         <SliderData service={service} setService={setService} />
 
-        {showModal && <Modal 
-        setShowModal={exitFromModal}
-        containerId={containerId} 
-        componentDetails={componentDetails}/>
-        }
+        {showModal && (
+          <Modal
+            setShowModal={exitFromModal}
+            containerId={containerId}
+            componentDetails={componentDetails}
+            searchPurpose={searchPurpose}
+          />
+        )}
       </Wrapper>
     </Container>
   );

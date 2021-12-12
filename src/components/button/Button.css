@@ -1,28 +1,28 @@
 .btn {
-    outline: none;
-    background: rgba(204, 204, 204, 0.57);
-    border: 1px solid #939191;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 3px;
-    transition: all 300ms ease-out;
+  outline: none;
+  background: rgba(204, 204, 204, 0.57);
+  border: 1px solid #939191;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  transition: all 300ms ease-out;
 }
 .btn:hover {
-    opacity: 0.6;
-    background: gray;
-    transform: translateY(-2px);
-    border:0 solid #ffffff;
-    transition: all 300ms ease-out;
+  opacity: 0.6;
+  background: gray;
+  transform: translateY(-2px);
+  border: 0 solid #ffffff;
+  transition: all 300ms ease-out;
 }
 
 .btn--text {
-    color: #ffffff;
-    font-weight: 400;
+  color: #ffffff;
+  font-weight: 400;
 }
 
 .btn--small {
-    font-size: 12px;
-    padding: 5px 10px;
+  font-size: 12px;
+  padding: 5px 10px;
 }
