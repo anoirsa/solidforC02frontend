@@ -13,6 +13,7 @@ import {
 import SubCompList from "./SubCompList";
 import SubInsertion from "./SubInsertion";
 import { useFocuses, useInputsMain } from "./useForm";
+import { mainCmpValidator } from "./validator";
 
 /**
  - ../chcekProduct/ProductCheckerSC
@@ -22,7 +23,7 @@ import { useFocuses, useInputsMain } from "./useForm";
 
 const NewInsertion = ({ setService }) => {
   const { state, setInputFocus, setFillingForm } = useFocuses();
-  const { inputsMain, handleChangeInput, addSubComponent, addNewComponentAll } = useInputsMain();
+  const { inputsMain, handleChangeInput, addSubComponent, submitTheForm, errors} = useInputsMain(mainCmpValidator);
   const {
     productFocus,
     countryFocus,
@@ -37,6 +38,9 @@ const NewInsertion = ({ setService }) => {
     productEmission,
     subComponents,
   } = inputsMain;
+
+  // Debug
+  //
   return (
     <Container
       initial={{ opacity: 0, x: -100 }}
@@ -67,6 +71,7 @@ const NewInsertion = ({ setService }) => {
                 placeholder="Name of product"
               />
             </InputWrapper>
+            {errors.productName && <p className="error--text">{errors.productName}</p>}
             <InputWrapper focused={countryFocus} insertion={true}>
               <input
                 type="text"
@@ -85,6 +90,7 @@ const NewInsertion = ({ setService }) => {
                 placeholder="Country of origin"
               />
             </InputWrapper>
+            {errors.countryOrigin && <p className="error--text">{errors.countryOrigin}</p>}
             <InputWrapper focused={identifierFocus} insertion={true}>
               <input
                 type="text"
@@ -105,7 +111,8 @@ const NewInsertion = ({ setService }) => {
                 }
                 placeholder="Identifier"
               />
-            </InputWrapper>
+            </InputWrapper> 
+            {errors.identifer && <p className="error--text">{errors.identifer}</p>}
             <InputWrapper focused={emissionFocus} insertion={true}>
               <input
                 type="text"
@@ -127,6 +134,7 @@ const NewInsertion = ({ setService }) => {
                 placeholder="Product C02 emissions"
               />
             </InputWrapper>
+            {errors.productEmission && <p className="error--text" >{errors.productEmission}</p>}
           </LeftSection>
           <RightSection>
             {!isFillingSub ? (
@@ -144,7 +152,7 @@ const NewInsertion = ({ setService }) => {
         </InsertionSection>
         <ButtonSection>
           <Button textGiven="Back" functionGiven={setService} />
-          <Button textGiven="Proceed" functionGiven={() => addNewComponentAll(inputsMain)}/>
+          <Button textGiven="Proceed" functionGiven={() => submitTheForm()}/>
         </ButtonSection>
       </Wrapper>
     </Container>

@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useContext } from "react";
+import { useReducer, useEffect, useContext, useState } from "react";
 import { Context } from "../../../../context/DataContext";
 import { ACTIONS } from "../../../../globals/GlobalRd";
 
@@ -72,7 +72,7 @@ const reducerTwo = (inputsMain, action) => {
 };
 ///
 
-const useInputsMain = () => {
+const useInputsMain = (mainCmpValidator) => {
   const [inputsMain, dispatch] = useReducer(reducerTwo, {
     productName: "",
     countryOrigin: "",
@@ -81,11 +81,13 @@ const useInputsMain = () => {
     subComponents: [],
   });
   const { addNewComponent } = useContext(Context);
+  const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSumbitting] = useState(false);
 
-  const addNewComponentAll = async () => {
-    await addNewComponent(inputsMain);
-    dispatch({ type: ACTIONS.CLEAR });
-  };
+  const submitTheForm = () => {
+      setErrors(mainCmpValidator(inputsMain))
+      setIsSumbitting(true)
+  }
 
   const handleChangeInput = (e) => {
     dispatch({
@@ -104,11 +106,28 @@ const useInputsMain = () => {
     dispatch({ type: ACTIONS.TOTAL_EMISSIONS_OF_ALL });
   };
 
+  
   useEffect(() => {
     minEmissionsCount();
-  }, [inputsMain.subComponents.length]);
+  }, [inputsMain.subComponents.length]); 
 
-  return { inputsMain, handleChangeInput, addSubComponent, addNewComponentAll };
+  useEffect(() => {
+
+    const doProcess = async () => {
+    var objIsEmpty = errors && Object.keys(errors).length === 0 && Object.getPrototypeOf(errors) === Object.prototype
+
+    if (objIsEmpty && isSubmitting) {
+      await addNewComponent(inputsMain);
+      setErrors({});
+      setIsSumbitting(false)  
+      dispatch({ type: ACTIONS.CLEAR });
+    }
+  }
+  doProcess();   
+  },[errors, isSubmitting])
+ // useEffect(() => doProccess(), [])
+
+  return { inputsMain, handleChangeInput, addSubComponent, submitTheForm, errors};
 };
 
 // A Reducer function assigned to sub-components inputs

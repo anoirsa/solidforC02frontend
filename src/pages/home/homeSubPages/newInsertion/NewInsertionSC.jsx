@@ -68,6 +68,12 @@ const LeftSection = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  .error--text {
+    text-align: start;
+    font-size: 10px;
+    margin-top: 4px;
+    color: red;
+  }
 `;
 
 const RightSection = styled.div`
@@ -146,6 +152,7 @@ const ItemWrapper = styled.div`
       width: 80%;
     }
   }
+  
 
   &:hover {
     opacity: 0.8;
